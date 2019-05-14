@@ -94,7 +94,7 @@ function cleanup() {
 	rm -rf "${CURDIR}/Makefile_release_ub18.diff"
 	rm -rf "${CURDIR}/compile.sh.diff"
 	rm -rf "${CURDIR}/libcc.diff"
-	rm -rf "${CURDIR}/gcc-7.3.0.tar.gz"
+	rm -rf "${CURDIR}/gcc-7.3.0.tar.xz"
 	
 }
 
@@ -103,7 +103,7 @@ function buildGCC() {
 	printf -- 'Building GCC \n'
 	cd "${CURDIR}"
 	wget https://ftpmirror.gnu.org/gcc/gcc-7.3.0/gcc-7.3.0.tar.xz
-	tar -xf gcc-7.3.0.tar.gz
+	tar -xf gcc-7.3.0.tar.xz
 	cd gcc-7.3.0/
 	./contrib/download_prerequisites
 	mkdir gcc_build
