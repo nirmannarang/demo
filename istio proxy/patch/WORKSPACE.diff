@@ -1,0 +1,38 @@
+--- WORKSPACE.oldfile   2019-05-14 02:55:23.265956175 -0400
++++ WORKSPACE.newfile   2019-05-14 03:00:29.625956175 -0400
+@@ -31,18 +31,30 @@
+     name = "boringssl_crypto",
+     actual = "//external:ssl",
+ )
++local_repository(
++    name = "boringssl",
++    path = "$SOURCE_ROOT/boringssl",
++)
++
++bind(
++    name = "ssl",
++    actual = "@boringssl//:ssl",
++)
+
+ # When updating envoy sha manually please update the sha in istio.deps file also
+ #
+ # Determine SHA256 `wget https://github.com/envoyproxy/envoy/archive/COMMIT.tar.gz && sha256sum COMMIT.tar.gz`
+-ENVOY_SHA = "925810d00b0d3095a8e67fd4e04e0f597ed188bb"
++#ENVOY_SHA = "925810d00b0d3095a8e67fd4e04e0f597ed188bb"
+ ENVOY_SHA256 = "26d1f14e881455546cf0e222ec92a8e1e5f65cb2c5761d63c66598b39cd9c47d"
+
+-http_archive(
++local_repository(
+     name = "envoy",
+-    strip_prefix = "envoy-" + ENVOY_SHA,
+-    url = "https://github.com/envoyproxy/envoy/archive/" + ENVOY_SHA + ".tar.gz",
+-    sha256 = ENVOY_SHA256,
++    path = "$SOURCE_ROOT/envoy",
++)
++
++local_repository(
++    name = "rules_foreign_cc",
++    path = "$SOURCE_ROOT/rules_foreign_cc",
+ )
+
+ load("@envoy//bazel:repositories.bzl", "envoy_dependencies")

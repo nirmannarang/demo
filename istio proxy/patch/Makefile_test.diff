@@ -1,0 +1,11 @@
+--- ./Makefile.oldfile  2019-05-09 06:45:04.826038421 -0400
++++ ./Makefile.newfile  2019-05-09 07:05:56.226507662 -0400
+@@ -47,7 +47,7 @@
+        @bazel shutdown
+
+ test:
+-       PATH=$(PATH) CC=$(CC) CXX=$(CXX) bazel $(BAZEL_STARTUP_ARGS) test $(BAZEL_TEST_ARGS) $(BAZEL_TARGETS)
++       PATH=$(PATH) CC=$(CC) CXX=$(CXX) bazel $(BAZEL_STARTUP_ARGS) test $(BAZEL_TEST_ARGS) $(BAZEL_TARGETS) --test_env=ENVOY_IP_TEST_VERSIONS=v4only --host_javabase=@local_jdk//:jdk
+        @bazel shutdown
+
+ test_asan:
