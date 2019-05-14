@@ -39,11 +39,6 @@ fi
 
 function prepare() {
 
-	if [[ "${TEST_USER}" != "root" ]]; then
-		printf -- 'Cannot run istio as non-root . Please switch to superuser \n'
-		exit 1
-	fi
-
 	if [[ "$FORCE" == "true" ]]; then
 		printf -- 'Force attribute provided hence continuing with install without confirmation message\n'
 	else
@@ -72,7 +67,7 @@ function runTest() {
 	if [[ "$TESTS" == "true" ]]; then
 		printf -- 'Running test cases \n'
 		cd $GOPATH/src/istio.io/istio
-		make test
+		sudo env PATH=$PATH make test
 	fi
 	set -e
 }
@@ -191,7 +186,7 @@ function configureAndInstall() {
 	#Build Istio
 	printf -- '\nBuilding Istio \n'
 	cd $GOPATH/src/istio.io/istio
-	make build
+	sudo env PATH=$PATH make build
 	printenv >>"$LOG_FILE"
 	printf -- 'Built Istio successfully \n\n'
 
@@ -252,8 +247,8 @@ case "$DISTRO" in
 "ubuntu-16.04" |  "ubuntu-18.04" )
 	printf -- "Installing %s %s for %s \n" "$PACKAGE_NAME" "$PACKAGE_VERSION" "$DISTRO" |& tee -a "$LOG_FILE"
 	printf -- '\nInstalling dependencies \n' |& tee -a "$LOG_FILE"
-	apt-get update  
-	apt-get install -y golang-1.10 pkg-config zip tar zlib1g-dev unzip git vim tar wget automake autoconf libtool make curl libcurl3-dev bzip2 mercurial patch
+	sudo apt-get update  
+	sudo apt-get install -y golang-1.10 pkg-config zip tar zlib1g-dev unzip git vim tar wget automake autoconf libtool make curl libcurl3-dev bzip2 mercurial patch
 	export PATH=/usr/lib/go-1.10/bin:$PATH
 	dependencyInstall
 	buildHelm
@@ -274,7 +269,7 @@ case "$DISTRO" in
 "sles-12.4" | "sles-15")
 	printf -- "Installing %s %s for %s \n" "$PACKAGE_NAME" "$PACKAGE_VERSION" "$DISTRO" |& tee -a "$LOG_FILE"
 	printf -- '\nInstalling dependencies \n' |& tee -a "$LOG_FILE"
-	zypper install -y wget tar make zip unzip git vim binutils-devel bzip2 glibc-devel makeinfo zlib-devel curl which automake autoconf libtool zlib pkg-config libcurl-devel mercurial patch
+	sudo zypper install -y wget tar make zip unzip git vim binutils-devel bzip2 glibc-devel makeinfo zlib-devel curl which automake autoconf libtool zlib pkg-config libcurl-devel mercurial patch
 	dependencyInstall
 	buildHelm
 	configureAndInstall |& tee -a "$LOG_FILE"
