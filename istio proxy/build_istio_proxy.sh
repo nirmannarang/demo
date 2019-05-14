@@ -120,7 +120,7 @@ function buildGCC() {
 	export LD_LIBRARY_PATH=/opt/gcc/lib64:"$LD_LIBRARY_PATH"
 	export C_INCLUDE_PATH=/opt/gcc/lib/gcc/s390x-linux-gnu/7.3.0/include
 	export CPLUS_INCLUDE_PATH=/opt/gcc/lib/gcc/s390x-linux-gnu/7.3.0/include
-	sudo ln -sf /opt/gcc/lib64/libstdc++.so.6.0.24 /lib64/libstdc++.so.6
+	
 
 	#for rhel
 	if [[ "${ID}" == "rhel" ]]; then
