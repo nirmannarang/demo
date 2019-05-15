@@ -69,9 +69,8 @@ function prepare() {
 
 function runTest() {
 	set +e
-	cd "${CURDIR}"
-	if [[ "$TESTS" == "true" ]]; then
-	         if [ "${VERSION_ID}" == "12.4" ]; then
+	
+	        if [ "${VERSION_ID}" == "12.4" ]; then
 		    cd "${CURDIR}"
 		    curl -o Makefile_test_sl12.4.diff $REPO_URL/Makefile_test_sl12.4.diff
 		    patch "${CURDIR}/proxy/Makefile" Makefile_test_sl12.4.diff
@@ -82,7 +81,7 @@ function runTest() {
 		fi
 		cd "${CURDIR}/proxy"
 		make test
-	fi
+	
 	set -e
 }
 
