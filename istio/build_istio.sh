@@ -68,6 +68,9 @@ function runTest() {
 		printf -- 'Running test cases \n'
 		cd $GOPATH/src/istio.io/istio
 		sudo env PATH=$PATH make test
+		printf -- '\n\n COMPLETED TEST EXECUTION !! Failures of below modules can be ignored as they are seen on x86 also .\n' |& tee -a "$LOG_FILE"
+		printf --  '\n\n *   istio.io/istio/security/pkg/nodeagent/caclient/providers/vault  \n' |& tee -a "$LOG_FILE"
+                printf --  '\n\n *   istio.io/istio/pilot/pkg/proxy/envoy/v2      \n' |& tee -a "$LOG_FILE"
 	fi
 	set -e
 }
