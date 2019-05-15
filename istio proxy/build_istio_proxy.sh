@@ -71,8 +71,15 @@ function runTest() {
 	set +e
 	cd "${CURDIR}"
 	if [[ "$TESTS" == "true" ]]; then
-		curl -o Makefile_test.diff $REPO_URL/Makefile_test.diff		
-		patch "${CURDIR}/proxy/Makefile" Makefile_test.diff	
+	         if [ "${VERSION_ID}" == "12.4" ]; then
+		    cd "${CURDIR}"
+		    curl -o Makefile_test_sl12.4.diff $REPO_URL/Makefile_test_sl12.4.diff
+		    patch "${CURDIR}/proxy/Makefile" Makefile_test_sl12.4.diff
+		else
+		    cd "${CURDIR}"
+		    curl -o Makefile_test.diff $REPO_URL/Makefile_test.diff		
+		    patch "${CURDIR}/proxy/Makefile" Makefile_test.diff	
+		fi
 		cd "${CURDIR}/proxy"
 		make test
 	fi
@@ -281,12 +288,16 @@ function configureAndInstall() {
 		#Build Istio Proxy In DEBUG mode
 		printf -- '\nBuilding Istio Proxy In DEBUG mode\n'
 		printf -- '\nBuild might take some time.Sit back and relax\n'
-
+                if [ "${VERSION_ID}" == "12.4" ]; then
+		    cd "${CURDIR}"
+		    curl -o Makefile_debug_sl12.4.diff $REPO_URL/Makefile_debug_sl12.4.diff
+		    patch "${CURDIR}/proxy/Makefile" Makefile_debug_sl12.4.diff
+		else
 		#Patch applied for debug mode
-			cd "${CURDIR}"
-			curl -o Makefile_debug.diff $REPO_URL/Makefile_debug.diff
-			patch "${CURDIR}/proxy/Makefile" Makefile_debug.diff
-		
+		    cd "${CURDIR}"
+		    curl -o Makefile_debug.diff $REPO_URL/Makefile_debug.diff
+		    patch "${CURDIR}/proxy/Makefile" Makefile_debug.diff
+		fi
 		cd "${CURDIR}/proxy"
 		make build
 		mkdir -p "${PROXY_DEBUG_BIN_PATH}"
@@ -301,7 +312,7 @@ function configureAndInstall() {
 		printf -- "Istio Proxy binaries (Release mode) are found at location $PROXY_RELEASE_BIN_PATH \n"
 	else
 		printf -- '\nBuilding Istio Proxy In RELEASE mode\n'
-		if [ "${VERSION_ID}" == "16.04" ] || [ "${ID}" == "rhel" ] || [ "${ID}" == "sles" ]; then
+		if [ "${VERSION_ID}" == "16.04" ] || [ "${ID}" == "rhel" ] || [ "${VERSION_ID}" == "15" ]; then
 			#patch applied here for ubuntu 16.04
 			curl -o Makefile_release.diff $REPO_URL/Makefile_release.diff
 			patch "${CURDIR}/proxy/Makefile" Makefile_release.diff
@@ -309,6 +320,9 @@ function configureAndInstall() {
 			#patch applied here for ubuntu 18.04
 			curl -o Makefile_release_ub18.diff $REPO_URL/Makefile_release_ub18.diff
 			patch "${CURDIR}/proxy/Makefile" Makefile_release_ub18.diff
+		elif [ "${VERSION_ID}" == "12.4" ]; then
+		        curl -o Makefile_release_sl12.4.diff $REPO_URL/Makefile_release_sl12.4.diff
+			patch "${CURDIR}/proxy/Makefile" Makefile_release_sl12.4.diff
 		fi
 
 		printf -- '\nBuild might take some time.Sit back and relax\n'
