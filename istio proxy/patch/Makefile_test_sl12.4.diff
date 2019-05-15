@@ -5,7 +5,7 @@
  
  test:
 -	PATH=$(PATH) CC=$(CC) CXX=$(CXX) bazel $(BAZEL_STARTUP_ARGS) test $(BAZEL_TEST_ARGS) $(BAZEL_TARGETS)
-+	PATH=$(PATH) CC=$(CC) CXX=$(CXX) bazel $(BAZEL_STARTUP_ARGS) test $(BAZEL_TEST_ARGS) $(BAZEL_TARGETS) --test_env=ENVOY_IP_TEST_VERSIONS=v4only --host_javabase=@local_jdk//:jdk
++	PATH=$(PATH) CC=$(CC) CXX=$(CXX) bazel $(BAZEL_STARTUP_ARGS) test --copt "-DENVOY_IGNORE_GLIBCXX_USE_CXX11_ABI_ERROR=1" $(BAZEL_TEST_ARGS) $(BAZEL_TARGETS) --test_env=ENVOY_IP_TEST_VERSIONS=v4only --host_javabase=@local_jdk//:jdk
  	@bazel shutdown
  
  test_asan:
