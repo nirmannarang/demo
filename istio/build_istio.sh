@@ -235,7 +235,7 @@ done
 function printSummary() {
 
 	printf -- "\n* Getting Started * \n"
-	printf -- '\nInstallation completed successfully'
+	printf -- "\n ISTIO BUILD COMPLETED SUCCESSFULLY !!! \n "
 }
 
 logDetails
