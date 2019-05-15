@@ -268,7 +268,7 @@ function configureAndInstall() {
 
 	#Patch Applied
 	curl -o WORKSPACE.diff $REPO_URL/WORKSPACE.diff
-	sed -i "s|$SOURCE_ROOT|${CURDIR}|" WORKSPACE.diff
+	sed -i "s|\$SOURCE_ROOT|${CURDIR}|" WORKSPACE.diff
 	cat WORKSPACE.diff
 	patch "${CURDIR}/proxy/WORKSPACE" WORKSPACE.diff
 
