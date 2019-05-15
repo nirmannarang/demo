@@ -134,7 +134,7 @@ function buildGCC() {
 
 function buildGO() {
 	cd "${CURDIR}"
-	if command -v "go" >/dev/null; then
+	if command -p "go" version | grep 1.10 >/dev/null; then
 			printf -- "Go detected\n"
 	else
 			printf -- 'Installing go\n'
@@ -159,9 +159,7 @@ function installDependency() {
 		make && sudo make install
 	fi
 	cd "${CURDIR}"
-	if command -v "java" >/dev/null; then
-			printf -- "Java detected\n"
-	else
+
 			printf -- 'Installing Java\n'
 			cd "${CURDIR}"
 			wget https://github.com/AdoptOpenJDK/openjdk11-binaries/releases/download/jdk-11.0.2%2B9/OpenJDK11U-jdk_s390x_linux_hotspot_11.0.2_9.tar.gz
@@ -170,9 +168,11 @@ function installDependency() {
 			export PATH=$JAVA_HOME/bin:$PATH
 			java -version
 			printf -- 'java installed\n'
-	fi	
+	
 	printf -- 'Downloading Bazel\n' |& tee -a "$LOG_FILE"
-	if [[ -z "$(command -v bazel)" ]]; then
+	if command -p "bazel" version | grep 0.24.1 >/dev/null; then
+			printf -- 'Bazel detected\n' |& tee -a "$LOG_FILE"
+	else
 
 		#Bazel download
 		cd "${CURDIR}"
@@ -197,8 +197,6 @@ function installDependency() {
 		export PATH=$PATH:${CURDIR}/bazel/output/
 		bazel version
 		printf -- 'Bazel installed\n' |& tee -a "$LOG_FILE"
-	else
-		printf -- 'Bazel detected\n' |& tee -a "$LOG_FILE"
 	fi
 	
        if [ "${ID}" == "rhel" ] || [ ${VERSION_ID} == 12.4 ]; then
