@@ -1,18 +1,19 @@
---- ./bin/init.sh.oldfile       2019-05-15 11:26:34.410694450 +0000
-+++ ./bin/init.sh.newfile       2019-05-15 11:28:46.000738746 +0000
-@@ -114,25 +114,25 @@
+--- ./bin/init.sh.oldfile       2019-06-26 08:11:55.908860580 +0000
++++ ./bin/init.sh.newfile       2019-06-25 09:56:51.898964414 +0000
+@@ -114,25 +114,26 @@
      rm -f "${ISTIO_OUT}/envoy" "${ROOTDIR}/pilot/pkg/proxy/envoy/envoy" "${ISTIO_BIN}/envoy"
 
      # Download debug envoy binary.
 -    mkdir -p "$ISTIO_ENVOY_DEBUG_DIR"
 +    mkdir -p $ISTIO_ENVOY_DEBUG_DIR/usr/local/bin
-+    cp <path-to-envoy-debug-binary/envoy> $ISTIO_ENVOY_DEBUG_DIR/usr/local/bin
++    cp /home/test/debugbin/envoy  $ISTIO_ENVOY_DEBUG_DIR/usr/local/bin
      pushd "$ISTIO_ENVOY_DEBUG_DIR"
      if [ "$LOCAL_OS" == "Darwin" ] && [ "$GOOS" != "linux" ]; then
         ISTIO_ENVOY_DEBUG_URL=${ISTIO_ENVOY_MAC_RELEASE_URL}
      fi
      echo "Downloading envoy debug artifact: ${DOWNLOAD_COMMAND} ${ISTIO_ENVOY_DEBUG_URL}"
 -    time ${DOWNLOAD_COMMAND} "${ISTIO_ENVOY_DEBUG_URL}" | tar xz
++
      cp usr/local/bin/envoy "$ISTIO_ENVOY_DEBUG_PATH"
      rm -rf usr
      popd
@@ -20,7 +21,7 @@
      # Download release envoy binary.
 -    mkdir -p "$ISTIO_ENVOY_RELEASE_DIR"
 +    mkdir -p $ISTIO_ENVOY_RELEASE_DIR/usr/local/bin
-+    cp <path-to-envoy-release-binary/envoy> $ISTIO_ENVOY_RELEASE_DIR/usr/local/bin
++    cp  /home/test/rebin/envoy $ISTIO_ENVOY_RELEASE_DIR/usr/local/bin
      pushd "$ISTIO_ENVOY_RELEASE_DIR"
      if [ "$LOCAL_OS" == "Darwin" ] && [ "$GOOS" != "linux" ]; then
         ISTIO_ENVOY_RELEASE_URL=${ISTIO_ENVOY_MAC_RELEASE_URL}
