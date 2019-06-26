@@ -6,7 +6,7 @@
      # Download debug envoy binary.
 -    mkdir -p "$ISTIO_ENVOY_DEBUG_DIR"
 +    mkdir -p $ISTIO_ENVOY_DEBUG_DIR/usr/local/bin
-+    cp /home/test/debugbin/envoy  $ISTIO_ENVOY_DEBUG_DIR/usr/local/bin
++    cp <path-to-envoy-debug-binary/envoy> $ISTIO_ENVOY_DEBUG_DIR/usr/local/bin
      pushd "$ISTIO_ENVOY_DEBUG_DIR"
      if [ "$LOCAL_OS" == "Darwin" ] && [ "$GOOS" != "linux" ]; then
         ISTIO_ENVOY_DEBUG_URL=${ISTIO_ENVOY_MAC_RELEASE_URL}
@@ -21,7 +21,7 @@
      # Download release envoy binary.
 -    mkdir -p "$ISTIO_ENVOY_RELEASE_DIR"
 +    mkdir -p $ISTIO_ENVOY_RELEASE_DIR/usr/local/bin
-+    cp  /home/test/rebin/envoy $ISTIO_ENVOY_RELEASE_DIR/usr/local/bin
++    cp <path-to-envoy-release-binary/envoy> $ISTIO_ENVOY_RELEASE_DIR/usr/local/bin
      pushd "$ISTIO_ENVOY_RELEASE_DIR"
      if [ "$LOCAL_OS" == "Darwin" ] && [ "$GOOS" != "linux" ]; then
         ISTIO_ENVOY_RELEASE_URL=${ISTIO_ENVOY_MAC_RELEASE_URL}
