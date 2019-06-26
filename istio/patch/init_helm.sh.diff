@@ -1,6 +1,6 @@
---- init_helm.sh.oldfile        2019-05-14 06:24:09.275956175 -0400
-+++ init_helm.sh.newfile        2019-05-14 06:25:19.475956175 -0400
-@@ -67,10 +67,7 @@
+--- ./bin/init_helm.sh.oldfile  2019-06-26 08:11:30.378860580 +0000
++++ ./bin/init_helm.sh.newfile  2019-06-25 09:59:53.688964414 +0000
+@@ -67,10 +67,8 @@
      TD=$(mktemp -d)
      # Install helm. Please keep it in sync with .circleci
      cd "${TD}" && \
@@ -8,7 +8,8 @@
 -        tar xfz helm.tgz && \
 -        mv ${LOCAL_OS}-amd64/helm "${ISTIO_OUT}/helm-${HELM_VER}" && \
 -        cp "${ISTIO_OUT}/helm-${HELM_VER}" "${ISTIO_OUT}/helm" && \
-+        cp <path-to-Helm-binary/helm> ${ISTIO_OUT}/helm && \
++
++        cp <path-to-Helm-binary/helm> "${ISTIO_OUT}/helm" && \
          rm -rf "${TD}" && \
          touch "${ISTIO_OUT}/version.helm.${HELM_VER}"
  fi
