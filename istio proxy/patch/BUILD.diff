@@ -1,5 +1,5 @@
---- ./tools/cpp/BUILD.oldfile   2019-05-09 05:51:05.534752435 -0400
-+++ ./tools/cpp/BUILD.newfile   2019-05-09 05:50:27.729604386 -0400
+--- ./tools/cpp/BUILD.oldfile   2019-06-24 09:20:26.858964614 +0000
++++ ./tools/cpp/BUILD   2019-06-24 09:20:46.368964614 +0000
 @@ -93,6 +93,7 @@
          "x64_windows|compiler": ":cc-compiler-x64_windows",
          "x64_windows_msvc|compiler": ":cc-compiler-x64_windows_msvc",
