@@ -1,15 +1,15 @@
---- source/common/network/utility.cc.oldfile    2019-05-09 06:33:18.159772322 -0400
-+++ source/common/network/utility.cc.newfile    2019-05-09 06:33:37.892458389 -0400
-@@ -452,16 +452,18 @@
+--- a/source/common/network/utility.cc
++++ b/source/common/network/utility.cc
+@@ -452,16 +452,18 @@ bool Utility::portInRangeList(const Address::Instance& address, const std::list<
 
  absl::uint128 Utility::Ip6ntohl(const absl::uint128& address) {
    // TODO(ccaraman): Support Ip6ntohl for big-endian.
 -  static_assert(ABSL_IS_LITTLE_ENDIAN,
 -                "Machines using big-endian byte order is not supported for IPv6.");
 -  return flipOrder(address);
-+//  static_assert(ABSL_IS_LITTLE_ENDIAN,
-+//                "Machines using big-endian byte order is not supported for IPv6.");
-+//  return flipOrder(address);
++  //static_assert(ABSL_IS_LITTLE_ENDIAN,
++   //             "Machines using big-endian byte order is not supported for IPv6.");
++  //return flipOrder(address);
 +  return address;
  }
 
@@ -18,9 +18,9 @@
 -  static_assert(ABSL_IS_LITTLE_ENDIAN,
 -                "Machines using big-endian byte order is not supported for IPv6.");
 -  return flipOrder(address);
-+//  static_assert(ABSL_IS_LITTLE_ENDIAN,
-+//                "Machines using big-endian byte order is not supported for IPv6.");
-+//  return flipOrder(address);
++  //static_assert(ABSL_IS_LITTLE_ENDIAN,
++   //             "Machines using big-endian byte order is not supported for IPv6.");
++  //return flipOrder(address);
 +  return address;
  }
 
