@@ -238,7 +238,7 @@ function configureAndInstall() {
 
 	cd "${CURDIR}"
 	printf -- '\nDownloading Envoy\n'
-	git clone https://github.com/envoyproxy/envoy
+	git clone https://github.com/istio/envoy/
 	cd envoy/
 	git checkout 4f5b5e101a081e05924990b1903d9d46553558d4
 
