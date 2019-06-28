@@ -25,7 +25,7 @@ HELM_BIN_PATH="/usr/bin/helm"
 PROXY_DEBUG_BIN_PATH="$CURDIR/proxy/debug/envoy"
 PROXY_RELEASE_BIN_PATH="$CURDIR/proxy/release/envoy"
 trap cleanup 0 1 2 ERR
-
+source /home/test/.bashrc
 #Check if directory exists
 if [ ! -d "$CURDIR/logs/" ]; then
 	mkdir -p "$CURDIR/logs/"
@@ -257,7 +257,6 @@ case "$DISTRO" in
 "rhel-7.4" | "rhel-7.5" | "rhel-7.6")
 	printf -- "Installing %s %s for %s \n" "$PACKAGE_NAME" "$PACKAGE_VERSION" "$DISTRO" |& tee -a "$LOG_FILE"
 	printf -- '\nInstalling dependencies \n' |& tee -a "$LOG_FILE"
-	source /home/test/.bashrc
 	sudo yum install -y wget tar make zip unzip git vim binutils-devel bzip2 which automake autoconf libtool zlib pkgconfig zlib-devel curl bison libcurl-devel mercurial
 	dependencyInstall
 	buildHelm
