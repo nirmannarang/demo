@@ -320,14 +320,10 @@ function configureAndInstall() {
 		printf -- "Istio Proxy binaries (Release mode) are found at location $PROXY_RELEASE_BIN_PATH \n"
 	else
 		printf -- '\nBuilding Istio Proxy In RELEASE mode\n'
-		if [ "${VERSION_ID}" == "16.04" ] || [ "${ID}" == "rhel" ] || [ "${VERSION_ID}" == "15" ]; then
+		if [ "${ID}" == "ubuntu" ] || [ "${ID}" == "rhel" ] || [ "${VERSION_ID}" == "15" ]; then
 			#patch applied here for ubuntu 16.04
 			curl -o Makefile_release.diff $REPO_URL/Makefile_release.diff
 			patch "${CURDIR}/proxy/Makefile" Makefile_release.diff
-		elif [ "${VERSION_ID}" == "18.04" ]; then
-			#patch applied here for ubuntu 18.04
-			curl -o Makefile_release_ub18.diff $REPO_URL/Makefile_release_ub18.diff
-			patch "${CURDIR}/proxy/Makefile" Makefile_release_ub18.diff
 		elif [ "${VERSION_ID}" == "12.4" ]; then
 			curl -o Makefile_release_sl12.4.diff $REPO_URL/Makefile_release_sl12.4.diff
 			patch "${CURDIR}/proxy/Makefile" Makefile_release_sl12.4.diff
