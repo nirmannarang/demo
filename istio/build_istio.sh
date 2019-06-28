@@ -148,11 +148,12 @@ function dependencyInstall() {
 
 		printf -- 'Installing go\n'
 		cd "${CURDIR}"
-		wget "https://storage.googleapis.com/golang/go${GO_VERSION}.linux-s390x.tar.gz"
-		tar -xzf "go${GO_VERSION}.linux-s390x.tar.gz"
-		export PATH=${CURDIR}/go/bin:$PATH
-		export GOROOT=${CURDIR}/go
-		go version
+		printf -- 'Installing go\n'
+		cd "${CURDIR}"		
+		wget "https://raw.githubusercontent.com/linux-on-ibm-z/scripts/master/Go/1.12.5/build_go.sh"
+		bash build_go.sh 
+		export GOROOT="/usr/local/go"
+		go version 
 		printf -- 'go installed\n'
 
 	
