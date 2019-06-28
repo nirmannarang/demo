@@ -21,7 +21,7 @@ PROXY_DEBUG_BIN_PATH="$CURDIR/proxy/debug"
 PROXY_RELEASE_BIN_PATH="$CURDIR/proxy/release"
 
 trap cleanup 0 1 2 ERR
-
+source /home/test/.bashrc
 #Check if directory exists
 if [ ! -d "$CURDIR/logs/" ]; then
 	mkdir -p "$CURDIR/logs/"
@@ -436,7 +436,6 @@ case "$DISTRO" in
 "rhel-7.4" | "rhel-7.5" | "rhel-7.6")
 	printf -- "Installing %s %s for %s \n" "$PACKAGE_NAME" "$PACKAGE_VERSION" "$DISTRO" |& tee -a "$LOG_FILE"
 	printf -- 'Installing the dependencies for Go from repository \n' |& tee -a "$LOG_FILE"
-	source /home/test/.bashrc
 	sudo yum install -y hostname git tar zip gcc-c++ unzip python libtool automake cmake curl wget gcc vim patch binutils-devel bzip2 make | tee -a "${LOG_FILE}"
 	buildGCC
 	buildGO |& tee -a "$LOG_FILE"
