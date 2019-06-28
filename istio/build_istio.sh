@@ -143,7 +143,7 @@ function dependencyInstall() {
 		printf -- 'Istio Proxy installed successfully\n' |& tee -a "$LOG_FILE"
 	fi
 
-	if [ "${ID}" == "rhel" ] || [ ${ID} == "sles" ]; then
+	
 		#Install Go
 
 		printf -- 'Installing go\n'
@@ -155,7 +155,7 @@ function dependencyInstall() {
 		go version
 		printf -- 'go installed\n'
 
-	fi
+	
 
 }
 
