@@ -147,8 +147,6 @@ function dependencyInstall() {
 		#Install Go
 
 		printf -- 'Installing go\n'
-		cd "${CURDIR}"
-		printf -- 'Installing go\n'
 		cd "${CURDIR}"		
 		wget "https://raw.githubusercontent.com/linux-on-ibm-z/scripts/master/Go/1.12.5/build_go.sh"
 		bash build_go.sh 
