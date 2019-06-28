@@ -149,12 +149,11 @@ function buildGO() {
 		printf -- "Go detected\n"
 	else
 		printf -- 'Installing go\n'
-		cd "${CURDIR}"
-		wget https://storage.googleapis.com/golang/go1.12.5.linux-s390x.tar.gz
-		tar -xzf go1.12.5.linux-s390x.tar.gz
-		export PATH=${CURDIR}/go/bin:$PATH
-		export GOROOT=${CURDIR}/go
-		go version
+		cd "${CURDIR}"		
+		wget "https://raw.githubusercontent.com/linux-on-ibm-z/scripts/master/Go/1.12.5/build_go.sh"
+		bash build_go.sh 
+		export GOROOT="/usr/local/go"
+		go version 
 		printf -- 'go installed\n'
 	fi
 }
