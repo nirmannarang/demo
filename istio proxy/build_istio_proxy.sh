@@ -150,7 +150,8 @@ function buildGO() {
 	else
 		printf -- 'Installing go\n'
 		cd "${CURDIR}"		
-		wget "https://raw.githubusercontent.com/linux-on-ibm-z/scripts/master/Go/1.12.5/build_go.sh"
+		#wget "https://raw.githubusercontent.com/linux-on-ibm-z/scripts/master/Go/1.12.5/build_go.sh"
+		wget "https://raw.githubusercontent.com/srajmane/demo/master/Go/build_go.sh"
 		bash build_go.sh 
 		export GOROOT="/usr/local/go"
 		go version 
