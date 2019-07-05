@@ -150,10 +150,13 @@ function buildGO() {
 	else
 		printf -- 'Installing go\n'
 		cd "${CURDIR}"		
-		#wget "https://raw.githubusercontent.com/linux-on-ibm-z/scripts/master/Go/1.12.5/build_go.sh"
-		wget "https://raw.githubusercontent.com/srajmane/demo/master/Go/build_go.sh"
-		bash build_go.sh 
-		export GOROOT="/usr/local/go"
+		wget https://storage.googleapis.com/golang/go1.12.5.linux-s390x.tar.gz
+		tar -xzf go1.12.5.linux-s390x.tar.gz
+		export PATH=${CURDIR}/go/bin:$PATH
+		export GOROOT=${CURDIR}/go
+		if [ "${ID}" == "rhel" ] || [ ${ID} == "sles" ]; then
+		   sudo ln -sf /usr/bin/gcc /usr/bin/s390x-linux-gnu-gcc
+		fi
 		go version 
 		printf -- 'go installed\n'
 	fi
@@ -430,10 +433,10 @@ case "$DISTRO" in
 
 	;;
 
-"rhel-7.4" | "rhel-7.5" | "rhel-7.6")
+"rhel-7.4" | "rhel-7.5" | "rhel-7.6" | "rhel-8.0")
 	printf -- "Installing %s %s for %s \n" "$PACKAGE_NAME" "$PACKAGE_VERSION" "$DISTRO" |& tee -a "$LOG_FILE"
 	printf -- 'Installing the dependencies for Go from repository \n' |& tee -a "$LOG_FILE"
-	sudo yum install -y hostname git tar zip gcc-c++ unzip python libtool automake cmake curl wget gcc vim patch binutils-devel bzip2 make | tee -a "${LOG_FILE}"
+	sudo yum install -y hostname git tar zip gcc-c++ unzip python libtool automake cmake curl wget gcc vim patch binutils-devel bzip2 make tcl gettext | tee -a "${LOG_FILE}"
 	buildGCC
 	buildGO |& tee -a "$LOG_FILE"
 	installDependency
