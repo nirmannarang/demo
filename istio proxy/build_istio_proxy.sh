@@ -164,13 +164,24 @@ function buildGO() {
 function installDependency() {
 	printf -- 'Installing dependencies\n' |& tee -a "$LOG_FILE"
 	#only for rhel
-	if [[ "${ID}" == "rhel" ]]; then
+	if [ "${VERSION_ID}" == "7.4" ] || [ "${VERSION_ID}" == "7.5" ] || [ "${VERSION_ID}" == "7.6" ]; then
 		cd "${CURDIR}"
 		wget https://cmake.org/files/v3.7/cmake-3.7.2.tar.gz
 		tar xzf cmake-3.7.2.tar.gz
 		cd cmake-3.7.2
 		./configure --prefix=/usr/local
 		make && sudo make install
+		
+		cd "${CURDIR}"
+		printf -- 'Building GIT \n' |& tee -a "$LOG_FILE"
+		wget https://github.com/git/git/archive/v2.17.1.tar.gz
+		tar -zxf v2.17.1.tar.gz
+		cd git-2.17.1
+		make configure
+		./configure --prefix=/usr
+		make
+		sudo make install
+		printf -- 'Built GIT successfully \n' |& tee -a "$LOG_FILE"
 	fi
 	cd "${CURDIR}"
 
@@ -301,16 +312,11 @@ function configureAndInstall() {
 		#Build Istio Proxy In DEBUG mode
 		printf -- '\nBuilding Istio Proxy In DEBUG mode\n'
 		printf -- '\nBuild might take some time.Sit back and relax\n'
-		if [ "${VERSION_ID}" == "12.4" ]; then
-			cd "${CURDIR}"
-			curl -o Makefile_debug_sl12.4.diff $REPO_URL/Makefile_debug_sl12.4.diff
-			patch "${CURDIR}/proxy/Makefile" Makefile_debug_sl12.4.diff
-		else
-			#Patch applied for debug mode
-			cd "${CURDIR}"
-			curl -o Makefile_debug.diff $REPO_URL/Makefile_debug.diff
-			patch "${CURDIR}/proxy/Makefile" Makefile_debug.diff
-		fi
+		#Patch applied for debug mode
+		cd "${CURDIR}"
+		curl -o Makefile_debug.diff $REPO_URL/Makefile_debug.diff
+		patch "${CURDIR}/proxy/Makefile" Makefile_debug.diff
+		
 		cd "${CURDIR}/proxy"
 		make build
 		mkdir -p "${PROXY_DEBUG_BIN_PATH}"
@@ -324,14 +330,9 @@ function configureAndInstall() {
 		printf -- "Istio Proxy binaries (Release mode) are found at location $PROXY_RELEASE_BIN_PATH \n"
 	else
 		printf -- '\nBuilding Istio Proxy In RELEASE mode\n'
-		if [ "${ID}" == "ubuntu" ] || [ "${ID}" == "rhel" ] || [ "${VERSION_ID}" == "15" ]; then
-			#patch applied here for ubuntu 16.04
-			curl -o Makefile_release.diff $REPO_URL/Makefile_release.diff
-			patch "${CURDIR}/proxy/Makefile" Makefile_release.diff
-		elif [ "${VERSION_ID}" == "12.4" ]; then
-			curl -o Makefile_release_sl12.4.diff $REPO_URL/Makefile_release_sl12.4.diff
-			patch "${CURDIR}/proxy/Makefile" Makefile_release_sl12.4.diff
-		fi
+		#patch applied here for ubuntu 16.04
+		curl -o Makefile_release.diff $REPO_URL/Makefile_release.diff
+		patch "${CURDIR}/proxy/Makefile" Makefile_release.diff
 
 		printf -- '\nBuild might take some time.Sit back and relax\n'
 		cd "${CURDIR}/proxy"
