@@ -457,7 +457,7 @@ case "$DISTRO" in
 "rhel-8.0")
 	printf -- "Installing %s %s for %s \n" "$PACKAGE_NAME" "$PACKAGE_VERSION" "$DISTRO" |& tee -a "$LOG_FILE"
 	printf -- 'Installing the dependencies for Go from repository \n' |& tee -a "$LOG_FILE"
-	sudo yum install -y hostname git tar zip gcc-c++ unzip python2 libtool automake cmake curl wget gcc vim patch binutils-devel bzip2 make tcl gettext | tee -a "${LOG_FILE}"
+	sudo yum install -y hostname git tar zip gcc-c++ unzip python2 libtool automake cmake curl wget xz gcc vim patch binutils-devel bzip2 make tcl gettext | tee -a "${LOG_FILE}"
 	buildGCC
 	buildGO |& tee -a "$LOG_FILE"
 	installDependency
