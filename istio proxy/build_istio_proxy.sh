@@ -458,6 +458,7 @@ case "$DISTRO" in
 	printf -- "Installing %s %s for %s \n" "$PACKAGE_NAME" "$PACKAGE_VERSION" "$DISTRO" |& tee -a "$LOG_FILE"
 	printf -- 'Installing the dependencies for Go from repository \n' |& tee -a "$LOG_FILE"
 	sudo yum install -y hostname git tar zip gcc gcc-c++ unzip python2 libtool automake cmake curl wget xz gcc vim patch binutils-devel bzip2 make tcl gettext | tee -a "${LOG_FILE}"
+	sudo ln -sf /usr/bin/python2 /usr/bin/python
 	buildGO |& tee -a "$LOG_FILE"
 	installDependency
 	configureAndInstall | tee -a "${LOG_FILE}"
