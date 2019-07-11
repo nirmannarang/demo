@@ -10,7 +10,7 @@
 set -e -o pipefail
 
 PACKAGE_NAME="istio"
-PACKAGE_VERSION="1.2.0"
+PACKAGE_VERSION="1.2.2"
 GO_VERSION="1.12.5"
 HELM_VERSION="2.9.1"
 CURDIR="$(pwd)"
