@@ -10,7 +10,7 @@
 set -e -o pipefail
 
 PACKAGE_NAME="Istio Proxy"
-PACKAGE_VERSION="1.2.0"
+PACKAGE_VERSION="1.2.2"
 CURDIR="$(pwd)"
 REPO_URL="https://raw.githubusercontent.com/srajmane/demo/master/istio%20proxy/patch"
 ISTIO_PROXY_REPO_URL="https://github.com/istio/proxy.git"
